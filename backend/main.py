@@ -2,11 +2,18 @@ from backend.routes.recommend import router as recommend_router
 from fastapi import FastAPI
 import pandas as pd
 from utils.cv_reader import extract_text_from_pdf, extract_skills
-from database.database import get_connection
+from database.database import get_connection, init_db
 from backend.routes.cvupload import router as cvupload_router
 from backend.routes.apply_now import router as apply_now_router
 from backend.routes.internships import router as internships_router
 from fastapi.middleware.cors import CORSMiddleware
+
+# Initialize DB tables
+try:
+    init_db()
+except Exception as e:
+    print(f"Failed to initialize database: {e}")
+
 
 app = FastAPI()
 app.add_middleware(

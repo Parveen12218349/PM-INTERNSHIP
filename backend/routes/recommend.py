@@ -38,7 +38,21 @@ def recommend(req: RecommendRequest):
     conn.close()
 
     if not jobs:
-        return {"error": "No internships available right now. Please run the scraper."}
+        return {
+            "fallback": True,
+            "error": "No internships available right now. Please run the scraper.",
+            "recommendations": [
+                {
+                    "title": "Data Science Intern",
+                    "company": "Placeholder Tech",
+                    "link": "#",
+                    "score": 0.0,
+                    "match": "Weak Match",
+                    "missing_skills": ["Python", "SQL"],
+                    "job_skills": ["Python", "SQL"]
+                }
+            ]
+        }
 
     for job in jobs:
         # Skills is stored as JSON string

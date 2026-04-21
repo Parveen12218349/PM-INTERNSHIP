@@ -12,3 +12,26 @@ def get_connection():
         password=os.getenv("DB_PASSWORD", "2198420@Pk"),
         database=os.getenv("DB_NAME", "internship_db")
     )
+
+def init_db():
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS scraped_internships (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            title VARCHAR(255),
+            company VARCHAR(255),
+            link VARCHAR(500),
+            skills JSON,
+            popularity INT DEFAULT 0
+        )
+    """)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS students (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            skills JSON
+        )
+    """)
+    conn.commit()
+    cursor.close()
+    conn.close()
