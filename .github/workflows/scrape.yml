@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4 mysql-connector-python
+          pip install requests beautifulsoup4 mysql-connector-python python-dotenv
           # Alternatively, if you have a requirements file, you could run:
           # pip install -r backend/requirements.txt
 
