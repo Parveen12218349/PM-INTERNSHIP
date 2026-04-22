@@ -166,7 +166,37 @@ export default function Results() {
                     </div>
                   )}
 
-                  <div className="mt-8 pt-6 border-t border-slate-700/50 flex justify-end">
+                  <div className="mt-8 pt-6 border-t border-slate-700/50 flex justify-end gap-3">
+                    <button 
+                      onClick={async (e) => {
+                        e.preventDefault();
+                        const token = localStorage.getItem('token');
+                        if (!token) {
+                          alert("Please log in to save internships.");
+                          return;
+                        }
+                        try {
+                          const res = await fetch(`${import.meta.env.VITE_API_URL}/applications`, {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                              'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ internship_id: job.id })
+                          });
+                          if (res.ok) {
+                            alert("Internship saved successfully! You can view it in 'My Applications'.");
+                          } else {
+                            const data = await res.json();
+                            alert(data.detail || "Failed to save internship.");
+                          }
+                        } catch (err) {
+                          alert("Network error.");
+                        }
+                      }}
+                      className="btn-secondary inline-flex items-center gap-2">
+                      Save
+                    </button>
                     <a href={job.link} target="_blank" rel="noopener noreferrer" 
                        className="btn-primary inline-flex items-center gap-2 group/btn">
                       Apply Now

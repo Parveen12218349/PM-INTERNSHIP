@@ -39,6 +39,28 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     
     return user
 
+oauth2_scheme_optional = OAuth2PasswordBearer(tokenUrl="auth/login", auto_error=False)
+
+def get_optional_current_user(token: str = Depends(oauth2_scheme_optional)):
+    if not token:
+        return None
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            return None
+    except JWTError:
+        return None
+
+    db = get_connection()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT id, email, role, is_verified FROM users WHERE email = %s", (email,))
+    user = cursor.fetchone()
+    cursor.close()
+    db.close()
+    
+    return user
+
 def get_admin_user(current_user: dict = Depends(get_current_user)):
     if current_user.get("role") != "admin":
         raise HTTPException(

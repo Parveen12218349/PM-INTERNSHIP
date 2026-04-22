@@ -10,6 +10,7 @@ import Register from './pages/Register';
 import VerifyEmail from './pages/VerifyEmail';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './pages/AdminDashboard';
+import MyApplications from './pages/MyApplications';
 
 function App() {
   const { user, logout } = useContext(AuthContext);
@@ -31,6 +32,12 @@ function App() {
               Browse Internships
             </Link>
             
+            {user && (
+              <Link to="/my-applications" className="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
+                My Applications
+              </Link>
+            )}
+
             {user?.role === 'admin' && (
               <Link to="/admin" className="text-sm font-medium text-red-400 hover:text-red-300 transition-colors border border-red-500/30 bg-red-500/10 px-3 py-1.5 rounded">
                 Admin Panel
@@ -76,7 +83,15 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
           
-          {/* Admin Routes */}
+          {/* Protected Routes */}
+          <Route 
+            path="/my-applications" 
+            element={
+              <ProtectedRoute>
+                <MyApplications />
+              </ProtectedRoute>
+            } 
+          />
           <Route 
             path="/admin" 
             element={

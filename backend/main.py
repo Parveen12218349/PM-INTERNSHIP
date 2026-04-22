@@ -7,6 +7,7 @@ from backend.routes.cvupload import router as cvupload_router
 from backend.routes.apply_now import router as apply_now_router
 from backend.routes.internships import router as internships_router
 from backend.routes.auth import router as auth_router
+from backend.routes.applications import router as applications_router
 from fastapi.middleware.cors import CORSMiddleware
 
 # Initialize DB tables
@@ -29,6 +30,7 @@ app.include_router(cvupload_router)
 app.include_router(apply_now_router)
 app.include_router(internships_router)
 app.include_router(auth_router)
+app.include_router(applications_router)
 
 
 # Routes

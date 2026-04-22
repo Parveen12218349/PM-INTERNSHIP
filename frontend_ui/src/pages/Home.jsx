@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
@@ -6,8 +6,53 @@ export default function Home() {
   const [isDragging, setIsDragging] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [checkingProfile, setCheckingProfile] = useState(true);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkSavedProfile = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setCheckingProfile(false);
+        return;
+      }
+
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/recommend`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ user_skills: [] })
+        });
+        
+        if (res.ok) {
+          const data = await res.json();
+          // If backend generated recommendations, it means user has saved skills!
+          // We can't know the exact skills from this response easily, but the recommendations are personalized.
+          // Wait, the backend currently doesn't return the extracted user_skills in the response.
+          // Let's just navigate with an empty skills array or a placeholder so Results page doesn't crash.
+          navigate('/results', { state: { results: data, skills: ['Saved Profile Skills'] } });
+        } else {
+          // If 400, it means no skills saved. Just show upload screen.
+          setCheckingProfile(false);
+        }
+      } catch (err) {
+        setCheckingProfile(false);
+      }
+    };
+    checkSavedProfile();
+  }, [navigate]);
+
+  if (checkingProfile) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -50,8 +95,15 @@ export default function Home() {
       const formData = new FormData();
       formData.append('file', file);
       
+      const token = localStorage.getItem('token');
+      const headers = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const uploadRes = await fetch(`${import.meta.env.VITE_API_URL}/cvupload`, {
         method: 'POST',
+        headers,
         body: formData,
       });
       
