@@ -17,52 +17,51 @@ function App() {
 
   return (
     <div className="min-h-screen">
-      <nav className="border-b border-slate-700 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/50">
+      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
+        <div className="glass-panel px-6 py-3 flex justify-between items-center bg-neutral-900/60 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-black shadow-[0_0_15px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform">
               IM
             </div>
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+            <span className="text-lg font-bold text-white tracking-tight">
               InternMatch
             </span>
           </Link>
           <div className="flex items-center gap-6">
-            <Link to="/internships" className="text-sm font-medium text-slate-300 hover:text-indigo-400 transition-colors">
-              Browse Internships
+            <Link to="/internships" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+              Explore Jobs
             </Link>
             
             {user && (
-              <Link to="/my-applications" className="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
-                My Applications
+              <Link to="/my-applications" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+                Applications
               </Link>
             )}
 
             {user?.role === 'admin' && (
-              <Link to="/admin" className="text-sm font-medium text-red-400 hover:text-red-300 transition-colors border border-red-500/30 bg-red-500/10 px-3 py-1.5 rounded">
-                Admin Panel
+              <Link to="/admin" className="text-xs font-bold text-red-400 hover:text-red-300 transition-colors border border-red-500/30 bg-red-500/10 px-2.5 py-1 rounded-full uppercase tracking-widest">
+                Admin
               </Link>
             )}
             
             {user ? (
-              <div className="flex items-center gap-4">
-                <span className="text-sm text-slate-400 border-r border-slate-700 pr-4">
+              <div className="flex items-center gap-4 pl-4 border-l border-neutral-700/50">
+                <span className="text-sm text-neutral-300 font-medium">
                   {user.email.split('@')[0]}
-                  {user.role === 'admin' && <span className="ml-2 text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded">Admin</span>}
                 </span>
                 <button 
                   onClick={logout}
-                  className="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                  className="text-sm font-medium text-neutral-500 hover:text-white transition-colors"
                 >
                   Logout
                 </button>
               </div>
             ) : (
-              <div className="flex items-center gap-4">
-                <Link to="/login" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+              <div className="flex items-center gap-3 pl-4 border-l border-neutral-700/50">
+                <Link to="/login" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
                   Log in
                 </Link>
-                <Link to="/register" className="text-sm font-medium bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg transition-all shadow-[0_0_10px_rgba(79,70,229,0.3)]">
+                <Link to="/register" className="text-sm font-semibold bg-white text-black px-4 py-1.5 rounded-full hover:bg-neutral-200 transition-all shadow-[0_0_10px_rgba(255,255,255,0.2)]">
                   Sign up
                 </Link>
               </div>
@@ -71,7 +70,7 @@ function App() {
         </div>
       </nav>
 
-      <main>
+      <main className="pt-28">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/results" element={<Results />} />
