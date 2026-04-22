@@ -12,8 +12,8 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await register(email, password);
-      navigate('/verify-email');
+      const data = await register(email, password);
+      navigate('/verify-email', { state: { demoToken: data.demo_token } });
     } catch (err) {
       setError(err.message);
     }

@@ -62,7 +62,7 @@ def register_user(user: UserRegister):
             
         send_verification_email(user.email, verification_token)
         
-        return {"message": "User registered successfully. Please check your email to verify your account."}
+        return {"message": "User registered successfully.", "demo_token": verification_token}
     except HTTPException:
         raise
     except Exception as e:
@@ -111,25 +111,13 @@ def verify_all():
 
 @router.get("/verify-email")
 def verify_email(token: str):
-    from auth.security import SECRET_KEY, ALGORITHM
-    from jose import jwt, JWTError
-    
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")
-        token_type: str = payload.get("type")
-        if not email or token_type != "verification":
-            raise HTTPException(status_code=400, detail="Invalid token")
-    except JWTError:
-        raise HTTPException(status_code=400, detail="Invalid or expired token")
-        
     db = get_connection()
     cursor = db.cursor()
-    cursor.execute("UPDATE users SET is_verified = TRUE, verification_token = NULL WHERE email = %s", (email,))
+    cursor.execute("UPDATE users SET is_verified = TRUE, verification_token = NULL WHERE verification_token = %s", (token,))
     if cursor.rowcount == 0:
         cursor.close()
         db.close()
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=400, detail="Invalid or expired verification code")
         
     db.commit()
     cursor.close()

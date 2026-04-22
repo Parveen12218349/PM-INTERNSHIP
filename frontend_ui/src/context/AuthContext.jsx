@@ -82,6 +82,17 @@ export const AuthProvider = ({ children }) => {
     return await response.json();
   };
 
+  const verify = async (token) => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/verify-email?token=${token}`, {
+      method: 'GET'
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Verification failed");
+    }
+    return await response.json();
+  };
+
   const logout = () => {
     setToken(null);
   };

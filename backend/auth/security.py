@@ -31,7 +31,5 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     return encoded_jwt
 
 def create_verification_token(email: str):
-    """Creates a token specifically for email verification."""
-    expire = datetime.utcnow() + timedelta(hours=24) # 24 hours to verify
-    to_encode = {"sub": email, "type": "verification", "exp": expire}
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    import random
+    return str(random.randint(100000, 999999))

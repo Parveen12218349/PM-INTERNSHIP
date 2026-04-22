@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Mail } from 'lucide-react';
 
 export default function VerifyEmail() {
@@ -8,6 +8,8 @@ export default function VerifyEmail() {
   const [error, setError] = useState('');
   const { verify } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const demoToken = location.state?.demoToken;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,9 +28,15 @@ export default function VerifyEmail() {
           <Mail className="w-8 h-8" />
         </div>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Check your email</h2>
-        <p className="text-gray-500 text-sm mb-8">
+        <p className="text-gray-500 text-sm mb-4">
           We've sent a 6-digit verification code to your email. Please enter it below.
         </p>
+
+        {demoToken && (
+          <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 mb-6 text-sm">
+            <span className="font-semibold text-blue-800">Demo Mode:</span> Your verification code is <span className="font-bold font-mono text-lg ml-1">{demoToken}</span>
+          </div>
+        )}
         
         {error && <div className="bg-red-50 text-red-600 p-3 rounded mb-6 text-sm font-medium border border-red-100">{error}</div>}
         
