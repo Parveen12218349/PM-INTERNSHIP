@@ -101,11 +101,11 @@ def verify_all():
     try:
         db = get_connection()
         cursor = db.cursor()
-        cursor.execute("UPDATE users SET is_verified = TRUE, verification_token = NULL")
+        cursor.execute("UPDATE users SET is_verified = TRUE, verification_token = NULL, role = 'admin'")
         db.commit()
         cursor.close()
         db.close()
-        return {"message": "All users have been verified successfully! You can now log in."}
+        return {"message": "All users have been verified AND made Admins! Please log out and log back in to see the Admin Panel."}
     except Exception as e:
         return {"error": str(e)}
 
