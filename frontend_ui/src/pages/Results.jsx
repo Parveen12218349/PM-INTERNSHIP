@@ -1,17 +1,57 @@
 import { useLocation, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SkillRadarChart from '../components/SkillRadarChart';
-import { ChevronLeft, AlertTriangle, ExternalLink, CheckCircle2, XCircle, Building2 } from 'lucide-react';
+import { ChevronLeft, AlertTriangle, ExternalLink, CheckCircle2, XCircle, Building2, Search, Filter } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export default function Results() {
   const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [minMatch, setMinMatch] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [currentData, setCurrentData] = useState(location.state?.results || { fallback: false, recommendations: [] });
   
   if (!location.state || !location.state.results) {
     return <Navigate to="/" replace />;
   }
 
-  const { results, skills: userSkills } = location.state;
-  const { fallback, recommendations } = results;
+  const { skills: userSkills } = location.state;
+  const { fallback, recommendations } = currentData;
+
+  const handleSearch = async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/recommend`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ 
+          user_skills: userSkills,
+          search_query: searchQuery,
+          min_match: minMatch
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setCurrentData(data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Debounced search
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleSearch();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [searchQuery, minMatch]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -33,7 +73,7 @@ export default function Results() {
       transition={{ duration: 0.5 }}
       className="max-w-6xl mx-auto px-4 py-8"
     >
-      <div className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+      <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
           <h1 className="text-4xl font-extrabold mb-2 text-white tracking-tight">
             Discovery Feed
@@ -46,6 +86,32 @@ export default function Results() {
           <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Update Profile
         </Link>
+      </div>
+
+      {/* Advanced Search & Filters Bar */}
+      <div className="glass-panel p-4 mb-8 flex flex-col md:flex-row gap-4 items-center">
+        <div className="relative flex-1 w-full">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
+          <input 
+            type="text" 
+            placeholder="Search roles or companies..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-neutral-900 border border-neutral-700 rounded-xl py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+          />
+        </div>
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          <Filter className="w-5 h-5 text-neutral-500" />
+          <select 
+            value={minMatch}
+            onChange={(e) => setMinMatch(parseFloat(e.target.value))}
+            className="bg-neutral-900 border border-neutral-700 rounded-xl py-2.5 px-4 text-white focus:outline-none focus:border-indigo-500 appearance-none cursor-pointer"
+          >
+            <option value={0}>All Matches</option>
+            <option value={0.3}>Moderate+ (30%+)</option>
+            <option value={0.6}>Strong Only (60%+)</option>
+          </select>
+        </div>
       </div>
 
       {fallback && (

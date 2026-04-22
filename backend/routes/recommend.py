@@ -10,6 +10,8 @@ router = APIRouter()
 
 class RecommendRequest(BaseModel):
     user_skills: Optional[List[str]] = []
+    search_query: Optional[str] = ""
+    min_match: Optional[float] = 0.0
 
 def match_label(score):
     if score >= 0.6:
@@ -50,8 +52,16 @@ def recommend(req: RecommendRequest, current_user: dict = Depends(get_optional_c
         conn.close()
         raise HTTPException(status_code=400, detail="No skills provided and no saved profile found.")
 
-    # Fetch from DB
-    cursor.execute("SELECT * FROM scraped_internships")
+    # Fetch from DB, optionally applying text search
+    query = "SELECT * FROM scraped_internships WHERE 1=1"
+    params = []
+    
+    if req.search_query:
+        search_term = f"%{req.search_query}%"
+        query += " AND (title LIKE %s OR company LIKE %s)"
+        params.extend([search_term, search_term])
+        
+    cursor.execute(query, params)
     jobs = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -59,20 +69,11 @@ def recommend(req: RecommendRequest, current_user: dict = Depends(get_optional_c
     if not jobs:
         return {
             "fallback": True,
-            "error": "No internships available right now. Please run the scraper.",
-            "recommendations": [
-                {
-                    "title": "Data Science Intern",
-                    "company": "Placeholder Tech",
-                    "link": "#",
-                    "score": 0.0,
-                    "match": "Weak Match",
-                    "missing_skills": ["Python", "SQL"],
-                    "job_skills": ["Python", "SQL"]
-                }
-            ]
+            "error": "No internships found matching your search.",
+            "recommendations": []
         }
 
+    scored_jobs = []
     for job in jobs:
         # Skills is stored as JSON string
         try:
@@ -84,21 +85,24 @@ def recommend(req: RecommendRequest, current_user: dict = Depends(get_optional_c
         # Compute match
         job["score"] = skill_match_score(user_skills, job_skills)
         job["missing_skills"] = skill_gap(user_skills, job_skills)
+        
+        if job["score"] >= req.min_match:
+            scored_jobs.append(job)
 
     # Sort by score
-    sorted_jobs = sorted(jobs, key=lambda x: (x["score"], x["popularity"]), reverse=True)
+    sorted_jobs = sorted(scored_jobs, key=lambda x: (x["score"], x["popularity"]), reverse=True)
     
     # Check max score for fallback
     max_score = sorted_jobs[0]["score"] if sorted_jobs else 0
     fallback = False
     
-    if max_score < 0.2:
+    if max_score < 0.2 and not req.search_query and req.min_match == 0:
         fallback = True
         # If fallback, just recommend the top 3 by popularity/random, explaining why.
-        # sorted_jobs is already sorted by score (0) then popularity.
         top_jobs = sorted_jobs[:3]
     else:
-        top_jobs = sorted_jobs[:3]
+        # Return top 50 matches for the dashboard feed
+        top_jobs = sorted_jobs[:50]
 
     output = {
         "fallback": fallback,
