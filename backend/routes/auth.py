@@ -28,40 +28,48 @@ class UserResponse(BaseModel):
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 def register_user(user: UserRegister):
-    db = get_connection()
-    cursor = db.cursor(dictionary=True)
-    
-    # Check if user exists
-    cursor.execute("SELECT id FROM users WHERE email = %s", (user.email,))
-    if cursor.fetchone():
-        cursor.close()
-        db.close()
-        raise HTTPException(status_code=400, detail="Email already registered")
-        
-    hashed_password = get_password_hash(user.password)
-    verification_token = create_verification_token(user.email)
-    
-    # Optional: If this is the very first user, we might want to make them an admin automatically
-    cursor.execute("SELECT COUNT(id) as count FROM users")
-    count_result = cursor.fetchone()
-    role = "admin" if count_result['count'] == 0 else "user"
-    
     try:
-        cursor.execute(
-            "INSERT INTO users (email, password_hash, role, verification_token) VALUES (%s, %s, %s, %s)",
-            (user.email, hashed_password, role, verification_token)
-        )
-        db.commit()
-    except Exception as e:
-        db.rollback()
-        raise HTTPException(status_code=500, detail=str(e))
-    finally:
-        cursor.close()
-        db.close()
+        db = get_connection()
+        cursor = db.cursor(dictionary=True)
         
-    send_verification_email(user.email, verification_token)
-    
-    return {"message": "User registered successfully. Please check your email to verify your account."}
+        # Check if user exists
+        cursor.execute("SELECT id FROM users WHERE email = %s", (user.email,))
+        if cursor.fetchone():
+            cursor.close()
+            db.close()
+            raise HTTPException(status_code=400, detail="Email already registered")
+            
+        hashed_password = get_password_hash(user.password)
+        verification_token = create_verification_token(user.email)
+        
+        # Optional: If this is the very first user, we might want to make them an admin automatically
+        cursor.execute("SELECT COUNT(id) as count FROM users")
+        count_result = cursor.fetchone()
+        role = "admin" if count_result['count'] == 0 else "user"
+        
+        try:
+            cursor.execute(
+                "INSERT INTO users (email, password_hash, role, verification_token) VALUES (%s, %s, %s, %s)",
+                (user.email, hashed_password, role, verification_token)
+            )
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(status_code=500, detail=f"Insert failed: {str(e)}")
+        finally:
+            cursor.close()
+            db.close()
+            
+        send_verification_email(user.email, verification_token)
+        
+        return {"message": "User registered successfully. Please check your email to verify your account."}
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        error_msg = f"{type(e).__name__}: {str(e)} | {traceback.format_exc()}"
+        print(error_msg)
+        raise HTTPException(status_code=500, detail=error_msg)
 
 @router.post("/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
