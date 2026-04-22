@@ -227,15 +227,24 @@ export default function Results() {
                   </div>
 
                   {job.missing_skills.length > 0 && (
-                    <div className="mb-6 p-3 bg-orange-50/50 rounded-lg border border-orange-100 flex gap-3">
-                      <AlertTriangle className="w-4 h-4 text-orange-400 shrink-0 mt-0.5" />
-                      <div>
-                        <h4 className="text-[11px] font-bold text-gray-700 mb-1 uppercase tracking-wider">Gap Analysis</h4>
-                        <div className="flex flex-wrap gap-1.5 mt-1.5">
+                    <div className="mb-6 p-4 bg-orange-50/50 rounded-lg border border-orange-100 flex gap-4">
+                      <AlertTriangle className="w-5 h-5 text-orange-400 shrink-0 mt-0.5" />
+                      <div className="w-full">
+                        <h4 className="text-xs font-bold text-gray-800 mb-1 uppercase tracking-wider">Gap Analysis & Course Recommendations</h4>
+                        <p className="text-xs text-orange-700 mb-3">You are missing the following skills. Click a skill to find top-rated courses and bridge your gap.</p>
+                        <div className="flex flex-wrap gap-2">
                           {job.missing_skills.map(skill => (
-                            <span key={skill} className="text-[10px] px-2 py-0.5 bg-white text-orange-600 border border-orange-200 rounded shadow-sm">
+                            <a 
+                              key={skill} 
+                              href={`https://www.coursera.org/search?query=${encodeURIComponent(skill)}`} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-[11px] font-medium px-2.5 py-1 bg-white hover:bg-orange-100 text-orange-700 border border-orange-200 hover:border-orange-300 rounded shadow-sm transition-colors flex items-center gap-1.5"
+                              title={`Find ${skill} courses on Coursera`}
+                            >
                               {skill}
-                            </span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
                           ))}
                         </div>
                       </div>

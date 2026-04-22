@@ -28,24 +28,44 @@ export default function Contact() {
         </div>
 
         <div className="space-y-8">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-blue-50 text-[#00A5EC] rounded-full flex items-center justify-center shrink-0">
-              <Mail className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-lg font-bold text-gray-900">Email Us</h4>
-              <p className="text-gray-600">support@pminternship.com</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-blue-50 text-[#00A5EC] rounded-full flex items-center justify-center shrink-0">
-              <MapPin className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-lg font-bold text-gray-900">Location</h4>
-              <p className="text-gray-600">San Francisco, CA<br/>Remote First</p>
-            </div>
-          </div>
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#00A5EC] flex-shrink-0">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-1">Email</h4>
+                  <p className="text-gray-500 text-sm">
+                    support@internmatch.in<br />
+                    Response time: 24-48 hours
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#00A5EC] flex-shrink-0">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-1">Office</h4>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    WeWork Galaxy, 43 Residency Road<br />
+                    Bengaluru, Karnataka 560025<br />
+                    India
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#00A5EC] flex-shrink-0">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-1">Phone</h4>
+                  <p className="text-gray-500 text-sm">
+                    +91 (80) 4567-8900<br />
+                    Mon-Fri from 9am to 6pm IST
+                  </p>
+                </div>
+              </div>
         </div>
       </div>
     </div>
