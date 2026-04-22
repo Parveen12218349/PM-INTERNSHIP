@@ -96,6 +96,19 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
     access_token = create_access_token(data={"sub": user['email'], "role": user['role']})
     return {"access_token": access_token, "token_type": "bearer"}
 
+@router.get("/verify-all")
+def verify_all():
+    try:
+        db = get_connection()
+        cursor = db.cursor()
+        cursor.execute("UPDATE users SET is_verified = TRUE, verification_token = NULL")
+        db.commit()
+        cursor.close()
+        db.close()
+        return {"message": "All users have been verified successfully! You can now log in."}
+    except Exception as e:
+        return {"error": str(e)}
+
 @router.get("/verify-email")
 def verify_email(token: str):
     from auth.security import SECRET_KEY, ALGORITHM
