@@ -139,10 +139,6 @@ export default function Home() {
       <div className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col lg:flex-row items-center gap-12">
           <div className="lg:w-1/2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-sm text-[#00A5EC] font-semibold mb-6">
-              <span className="w-2 h-2 rounded-full bg-[#00A5EC] animate-pulse"></span>
-              Live Scraper Active
-            </div>
             <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-6 tracking-tight">
               Launch your career in <span className="text-[#00A5EC]">Tech & Product.</span>
             </h1>
