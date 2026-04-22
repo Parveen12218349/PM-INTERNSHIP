@@ -1,107 +1,118 @@
-import { Routes, Route, Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from './context/AuthContext';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 import Home from './pages/Home';
 import Results from './pages/Results';
-import Categories from './pages/Categories';
-import CategoryInternships from './pages/CategoryInternships';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import VerifyEmail from './pages/VerifyEmail';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './pages/AdminDashboard';
 import MyApplications from './pages/MyApplications';
+import CategoryInternships from './pages/CategoryInternships';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Profile from './pages/Profile';
+import Footer from './components/Footer';
+import { UserCircle } from 'lucide-react';
 
-function App() {
-  const { user, logout } = useContext(AuthContext);
+function AppContent() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen">
-      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
-        <div className="glass-panel px-6 py-3 flex justify-between items-center bg-neutral-900/60 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-black shadow-[0_0_15px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform">
-              IM
-            </div>
-            <span className="text-lg font-bold text-white tracking-tight">
-              InternMatch
-            </span>
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link to="/internships" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
-              Explore Jobs
-            </Link>
-            
-            {user && (
-              <Link to="/my-applications" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
-                Applications
-              </Link>
-            )}
-
-            {user?.role === 'admin' && (
-              <Link to="/admin" className="text-xs font-bold text-red-400 hover:text-red-300 transition-colors border border-red-500/30 bg-red-500/10 px-2.5 py-1 rounded-full uppercase tracking-widest">
-                Admin
-              </Link>
-            )}
-            
-            {user ? (
-              <div className="flex items-center gap-4 pl-4 border-l border-neutral-700/50">
-                <span className="text-sm text-neutral-300 font-medium">
-                  {user.email.split('@')[0]}
+    <div className="min-h-screen flex flex-col bg-[#f8f9fa]">
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center gap-8">
+              <Link to="/" className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded bg-[#00A5EC] flex items-center justify-center text-white font-bold">
+                  IM
+                </div>
+                <span className="text-xl font-extrabold text-gray-900 tracking-tight">
+                  InternMatch
                 </span>
-                <button 
-                  onClick={logout}
-                  className="text-sm font-medium text-neutral-500 hover:text-white transition-colors"
-                >
-                  Logout
-                </button>
+              </Link>
+              
+              <div className="hidden md:flex items-center gap-6">
+                <Link to="/" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">Home</Link>
+                <Link to="/internships" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">Internships</Link>
+                <Link to="/about" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">About</Link>
+                <Link to="/contact" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">Contact</Link>
               </div>
-            ) : (
-              <div className="flex items-center gap-3 pl-4 border-l border-neutral-700/50">
-                <Link to="/login" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
-                  Log in
+            </div>
+
+            <div className="flex items-center gap-4">
+              {user?.role === 'admin' && (
+                <Link to="/admin" className="text-xs font-bold text-white bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded uppercase tracking-wider transition-colors">
+                  Admin
                 </Link>
-                <Link to="/register" className="text-sm font-semibold bg-white text-black px-4 py-1.5 rounded-full hover:bg-neutral-200 transition-all shadow-[0_0_10px_rgba(255,255,255,0.2)]">
-                  Sign up
-                </Link>
-              </div>
-            )}
+              )}
+              
+              {user ? (
+                <div className="flex items-center gap-4 border-l border-gray-200 pl-4">
+                  <Link to="/my-applications" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">
+                    Dashboard
+                  </Link>
+                  <Link to="/profile" className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-[#00A5EC] transition-colors">
+                    <UserCircle className="w-5 h-5 text-gray-400" />
+                    {user.email.split('@')[0]}
+                  </Link>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3 border-l border-gray-200 pl-4">
+                  <Link to="/login" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">
+                    Login
+                  </Link>
+                  <Link to="/register" className="btn-primary">
+                    Sign Up
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </nav>
 
-      <main className="pt-28">
+      <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/results" element={<Results />} />
-          <Route path="/internships" element={<Categories />} />
-          <Route path="/internships/:category" element={<CategoryInternships />} />
-          
-          {/* Auth Routes */}
+          <Route path="/internships/:category?" element={<CategoryInternships />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
           
-          {/* Protected Routes */}
-          <Route 
-            path="/my-applications" 
-            element={
-              <ProtectedRoute>
-                <MyApplications />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/admin" 
-            element={
-              <ProtectedRoute requireAdmin={true}>
-                <AdminDashboard />
-              </ProtectedRoute>
-            } 
-          />
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } />
+          <Route path="/my-applications" element={
+            <ProtectedRoute>
+              <MyApplications />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin" element={
+            <ProtectedRoute requireAdmin={true}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
         </Routes>
       </main>
+      
+      <Footer />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 

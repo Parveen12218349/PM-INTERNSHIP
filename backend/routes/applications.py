@@ -67,3 +67,27 @@ def delete_application(application_id: int, current_user: dict = Depends(get_cur
     db.close()
     
     return {"message": "Application removed."}
+
+class ApplicationUpdate(BaseModel):
+    status: str
+
+@router.put("/{application_id}/status")
+def update_application_status(application_id: int, update: ApplicationUpdate, current_user: dict = Depends(get_current_user)):
+    valid_statuses = ["saved", "applied", "pending", "approved", "rejected"]
+    if update.status not in valid_statuses:
+        raise HTTPException(status_code=400, detail="Invalid status.")
+
+    db = get_connection()
+    cursor = db.cursor()
+    
+    cursor.execute("UPDATE applications SET status = %s WHERE id = %s AND user_id = %s", (update.status, application_id, current_user['id']))
+    
+    if cursor.rowcount == 0:
+        db.close()
+        raise HTTPException(status_code=404, detail="Application not found or no changes made.")
+        
+    db.commit()
+    cursor.close()
+    db.close()
+    
+    return {"message": "Application status updated successfully."}

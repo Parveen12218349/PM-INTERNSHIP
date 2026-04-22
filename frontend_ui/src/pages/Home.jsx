@@ -133,117 +133,126 @@ export default function Home() {
 
   const token = localStorage.getItem('token');
 
+  const token = localStorage.getItem('token');
+
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 flex flex-col items-center">
-      {!token ? (
-        <div className="w-full mt-10 flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-sm text-neutral-400 mb-8">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            V2.0 is now live in production
-          </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tighter text-white">
-            Find the perfect <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-200 to-neutral-600">
-              startup internship.
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed mb-10">
-            Upload your resume and let our AI engine match you with real-time, high-growth PM and Tech opportunities that fit your exact skill set.
-          </p>
-          <div className="flex gap-4">
-            <button onClick={() => navigate('/register')} className="btn-primary flex items-center gap-2">
-              Get Started
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </button>
-            <button onClick={() => navigate('/internships')} className="btn-secondary">
-              Browse Jobs
-            </button>
-          </div>
-          
-          <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl text-left">
-            <div className="glass-panel p-8">
-              <div className="w-12 h-12 bg-neutral-800 rounded-xl flex items-center justify-center mb-6">🧠</div>
-              <h3 className="text-lg font-bold text-white mb-2">AI Resume Parsing</h3>
-              <p className="text-neutral-400 text-sm">We automatically extract your key PM skills and map them against live job requirements.</p>
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <div className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col lg:flex-row items-center gap-12">
+          <div className="lg:w-1/2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-sm text-[#00A5EC] font-semibold mb-6">
+              <span className="w-2 h-2 rounded-full bg-[#00A5EC] animate-pulse"></span>
+              Live Scraper Active
             </div>
-            <div className="glass-panel p-8 border-indigo-500/20 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 blur-3xl rounded-full"></div>
-              <div className="w-12 h-12 bg-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center mb-6">⚡</div>
-              <h3 className="text-lg font-bold text-white mb-2">Automated Scraping</h3>
-              <p className="text-neutral-400 text-sm">Our platform scours the web every midnight to find the newest internship postings before anyone else.</p>
-            </div>
-            <div className="glass-panel p-8">
-              <div className="w-12 h-12 bg-neutral-800 rounded-xl flex items-center justify-center mb-6">📊</div>
-              <h3 className="text-lg font-bold text-white mb-2">Application Tracking</h3>
-              <p className="text-neutral-400 text-sm">Save your favorite internships and manage your application pipeline in a unified dashboard.</p>
+            <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-6 tracking-tight">
+              Launch your career in <span className="text-[#00A5EC]">Tech & Product.</span>
+            </h1>
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              We instantly map your resume skills to hundreds of verified, high-growth startup internships. Stop guessing, start applying.
+            </p>
+            {!token && (
+              <div className="flex flex-wrap gap-4">
+                <button onClick={() => navigate('/register')} className="btn-primary text-base px-8 py-3">
+                  Register for Free
+                </button>
+                <button onClick={() => navigate('/internships')} className="btn-secondary text-base px-8 py-3">
+                  View Internships
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="lg:w-1/2 flex justify-center">
+            {/* Visual Placeholder for a generated Hero Graphic */}
+            <div className="relative w-full max-w-md aspect-square bg-blue-50 rounded-full flex items-center justify-center p-8">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-100 to-transparent rounded-full opacity-50"></div>
+              <div className="glass-panel p-6 shadow-xl relative z-10 w-full transform hover:-translate-y-2 transition-transform duration-500">
+                <div className="h-4 w-1/3 bg-gray-200 rounded mb-4"></div>
+                <div className="h-3 w-1/2 bg-gray-100 rounded mb-8"></div>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center"><span className="text-green-600 text-xs font-bold">95%</span></div>
+                    <div className="h-2 w-full bg-gray-100 rounded"></div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center"><span className="text-blue-600 text-xs font-bold">82%</span></div>
+                    <div className="h-2 w-3/4 bg-gray-100 rounded"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      ) : (
-        <div className="w-full max-w-2xl mt-10">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-white tracking-tight mb-3">Initialize your Profile</h2>
-            <p className="text-neutral-400">Upload your PDF resume to extract your skills and generate personalized matches.</p>
-          </div>
-          <div 
-            className={`glass-panel p-12 flex flex-col items-center justify-center border-2 border-dashed transition-all duration-300 rounded-[2rem] cursor-pointer
-              ${isDragging ? 'border-indigo-500 bg-indigo-500/5 scale-[1.02]' : 'border-neutral-700 hover:border-neutral-500 hover:bg-neutral-800/30'}
-              ${file ? 'border-white/20 bg-white/5' : ''}`}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              onChange={handleFileSelect} 
-              accept=".pdf" 
-              className="hidden" 
-            />
-            
-            <div className="w-16 h-16 rounded-full bg-neutral-900 flex items-center justify-center mb-6 border border-neutral-800">
-              <svg className={`w-8 h-8 ${file ? 'text-white' : 'text-neutral-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                {file ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                )}
-              </svg>
+      </div>
+
+      {/* Resume Upload Section (For Logged In Users) */}
+      {token && (
+        <div className="bg-gray-50 py-20 flex-grow">
+          <div className="max-w-3xl mx-auto px-4">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold text-gray-900 mb-3">Initialize your Profile</h2>
+              <p className="text-gray-600">Upload your PDF resume to extract your skills and generate personalized matches.</p>
             </div>
             
-            <h3 className="text-lg font-semibold text-white mb-2">
-              {file ? file.name : "Select your Resume"}
-            </h3>
-            <p className="text-neutral-500 text-sm text-center mb-8">
-              {file ? "Ready to analyze your skills" : "Drag & drop your PDF here or click to browse"}
-            </p>
-
-            <button 
-              onClick={(e) => {
-                e.stopPropagation();
-                processResume();
-              }}
-              disabled={!file || loading}
-              className={`w-full max-w-xs py-3 rounded-xl font-medium text-sm transition-all duration-300 flex justify-center items-center gap-2
-                ${!file ? 'bg-neutral-800 text-neutral-500 cursor-not-allowed' : 
-                  'bg-white text-black hover:bg-neutral-200 transform hover:-translate-y-0.5 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.15)]'}
-              `}
+            <div 
+              className={`glass-panel p-12 flex flex-col items-center justify-center border-2 border-dashed transition-all duration-300 rounded-2xl cursor-pointer
+                ${isDragging ? 'border-[#00A5EC] bg-blue-50/50 scale-[1.02]' : 'border-gray-300 hover:border-[#00A5EC] hover:bg-gray-50'}
+                ${file ? 'border-green-400 bg-green-50/30' : ''}`}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
             >
-              {loading ? (
-                <>
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Processing PDF...
-                </>
-              ) : "Analyze Profile"}
-            </button>
-            
-            {error && (
-              <p className="mt-4 text-red-400 text-sm font-medium bg-red-500/10 px-4 py-2 rounded-lg border border-red-500/20">{error}</p>
-            )}
+              <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handleFileSelect} 
+                accept=".pdf" 
+                className="hidden" 
+              />
+              
+              <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-6">
+                <svg className={`w-8 h-8 ${file ? 'text-green-500' : 'text-[#00A5EC]'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  {file ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                  )}
+                </svg>
+              </div>
+              
+              <h3 className="text-lg font-bold text-gray-900 mb-2">
+                {file ? file.name : "Select your Resume"}
+              </h3>
+              <p className="text-gray-500 text-sm text-center mb-8">
+                {file ? "Ready to analyze your skills" : "Drag & drop your PDF here or click to browse"}
+              </p>
+
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  processResume();
+                }}
+                disabled={!file || loading}
+                className={`w-full max-w-xs py-3 rounded-xl font-bold text-sm transition-all duration-300 flex justify-center items-center gap-2
+                  ${!file ? 'bg-gray-200 text-gray-500 cursor-not-allowed shadow-none' : 'btn-primary'}
+                `}
+              >
+                {loading ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing PDF...
+                  </>
+                ) : "Analyze Profile"}
+              </button>
+              
+              {error && (
+                <p className="mt-4 text-red-600 text-sm font-medium bg-red-50 px-4 py-2 rounded-lg border border-red-100">{error}</p>
+              )}
+            </div>
           </div>
         </div>
       )}
