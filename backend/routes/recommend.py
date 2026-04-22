@@ -3,7 +3,7 @@ from pydantic import BaseModel
 import json
 import pandas as pd
 from database.database import get_connection
-from auth.deps import get_optional_current_user
+from backend.auth.deps import get_optional_current_user
 from typing import Optional, List
 
 router = APIRouter()

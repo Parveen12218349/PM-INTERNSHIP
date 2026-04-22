@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, Depends
 from utils.cv_reader import extract_text_from_bytes, extract_skills
-from auth.deps import get_optional_current_user
+from backend.auth.deps import get_optional_current_user
 from database.database import get_connection
 import json
 
