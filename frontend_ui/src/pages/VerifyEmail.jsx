@@ -25,10 +25,14 @@ export default function VerifyEmail() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await verify(token);
+      await verify(token.trim());
       navigate('/login');
     } catch (err) {
-      setError(err.message);
+      if (err.message.includes("Invalid or expired")) {
+        setError("Invalid or expired code. You may already be verified! Try logging in, or check your email for the most recent code.");
+      } else {
+        setError(err.message);
+      }
     }
   };
 
