@@ -59,7 +59,7 @@ def register_user(user: UserRegister):
                     db.close()
                     
                 send_verification_email(user.email, verification_token)
-                return {"message": "Verification email resent.", "demo_token": verification_token}
+                return {"message": "Verification email resent."}
             
         hashed_password = get_password_hash(user.password)
         verification_token = create_verification_token(user.email)
@@ -84,7 +84,7 @@ def register_user(user: UserRegister):
             
         send_verification_email(user.email, verification_token)
         
-        return {"message": "User registered successfully.", "demo_token": verification_token}
+        return {"message": "User registered successfully."}
     except HTTPException:
         raise
     except Exception as e:

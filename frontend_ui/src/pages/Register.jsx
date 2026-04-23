@@ -13,7 +13,7 @@ export default function Register() {
     e.preventDefault();
     try {
       const data = await register(email, password);
-      navigate('/verify-email', { state: { demoToken: data.demo_token } });
+      navigate('/verify-email');
     } catch (err) {
       setError(err.message);
     }

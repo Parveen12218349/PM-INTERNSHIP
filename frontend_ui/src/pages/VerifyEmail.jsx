@@ -9,7 +9,6 @@ export default function VerifyEmail() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
-  const demoToken = location.state?.demoToken;
   const urlToken = searchParams.get('token');
   const [token, setToken] = useState(urlToken || '');
 
@@ -44,12 +43,6 @@ export default function VerifyEmail() {
           We've sent a 6-digit verification code to your email. Please enter it below.
         </p>
 
-        {demoToken && (
-          <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 mb-6 text-sm">
-            <span className="font-semibold text-blue-800">Demo Mode:</span> Your verification code is <span className="font-bold font-mono text-lg ml-1">{demoToken}</span>
-          </div>
-        )}
-        
         {error && <div className="bg-red-50 text-red-600 p-3 rounded mb-6 text-sm font-medium border border-red-100">{error}</div>}
         
         <form onSubmit={handleSubmit} className="space-y-6">
