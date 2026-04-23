@@ -8,7 +8,9 @@ InternMatch is an AI-powered, real-time internship recommendation and tracking p
 *   **AI Skill Extraction:** Analyzes user-uploaded PDF resumes to automatically extract relevant vocational, technical, and soft skills aligned with the PM Internship Scheme.
 *   **Precision Match Algorithm:** Calculates match scores (0-100%) by comparing extracted resume skills against scraped internship requirements.
 *   **Gap Analysis & Upskilling:** Identifies missing skills for specific roles and provides direct links to Coursera for immediate upskilling.
-*   **AI Interview Assistant (Beta):** Simulated AI chatbot that quizzes applicants with common PM Internship Scheme interview questions to help them prep.
+*   **AI Interview Assistant (Beta):** Simulated AI chatbot that quizzes applicants with common Prime Minister's Internship Scheme interview questions to help them prep.
+*   **Profile Management:** A comprehensive profile section where users can manually enter details or use **AI Auto-fill** by uploading their CV.
+*   **Profile Strength Tracker:** Visual progress bar that shows the percentage of profile completion to encourage users to provide full details.
 *   **Application Tracking:** Users can save, track, and update the status of their internship applications directly from their dashboard.
 *   **Email Notifications:** Automated email alerts when application statuses change (e.g., from 'Pending' to 'Approved').
 *   **Admin Dashboard:** Centralized control center to manually trigger web scrapers and view platform analytics.
