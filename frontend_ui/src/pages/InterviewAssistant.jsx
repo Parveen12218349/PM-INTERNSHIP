@@ -4,19 +4,19 @@ import { Send, Bot, User, Loader2, Sparkles, AlertCircle } from 'lucide-react';
 import { useLocation, Link } from 'react-router-dom';
 
 const PM_QUESTIONS = [
-  "How would you improve our product?",
-  "Tell me about a time you had to prioritize features with limited resources.",
-  "How do you handle conflicting feedback from different stakeholders?",
-  "Design an elevator for a 100-story building.",
-  "What is your favorite product and why?",
-  "How would you measure the success of a new feature launch?",
-  "Estimate the number of bicycles sold in India last year."
+  "How can youth contribute to nation-building through the PM Internship Scheme?",
+  "What skills do you hope to acquire from this internship and how will it help your career?",
+  "Tell me about a time you worked in a team to solve a difficult problem.",
+  "How do you plan to handle challenges while working in a new sector like manufacturing or administration?",
+  "Why are you interested in the Prime Minister's Internship Scheme specifically?",
+  "What makes you a good fit for top tier companies participating in this scheme?",
+  "How would you ensure you meet your deliverables and daily tasks effectively?"
 ];
 
 export default function InterviewAssistant() {
   const location = useLocation();
   const [messages, setMessages] = useState([
-    { role: 'assistant', text: "Hi! I'm your AI Interview Prep Assistant. I specialize in Product Management. We can do a mock interview. Are you ready for your first question?" }
+    { role: 'assistant', text: "Hi! I'm your AI Interview Prep Assistant. I specialize in the Prime Minister's Internship Scheme. We can do a mock interview. Are you ready for your first question?" }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -49,7 +49,7 @@ export default function InterviewAssistant() {
         const q = PM_QUESTIONS[Math.floor(Math.random() * PM_QUESTIONS.length)];
         aiResponse = `Great! Here is your question:\n\n**${q}**\n\nTake your time and type out your response. Think out loud!`;
       } else if (lowerInput.length < 20) {
-        aiResponse = "Could you elaborate a bit more on that? In PM interviews, it's great to structure your answers using frameworks like STAR (Situation, Task, Action, Result) or CIRCLES.";
+        aiResponse = "Could you elaborate a bit more on that? In PM Scheme interviews, it's great to structure your answers using frameworks like STAR (Situation, Task, Action, Result) to showcase your real-world capabilities.";
       } else {
         // Generic feedback
         const followUp = PM_QUESTIONS[Math.floor(Math.random() * PM_QUESTIONS.length)];
@@ -70,7 +70,7 @@ export default function InterviewAssistant() {
             AI Interview Prep
           </h1>
           <p className="text-gray-500 font-medium text-sm mt-1">
-            Simulate PM interviews with real-time feedback (Beta)
+            Simulate PM Scheme interviews with real-time feedback (Beta)
           </p>
         </div>
         <Link to="/results" className="text-sm font-semibold text-[#00A5EC] hover:underline">

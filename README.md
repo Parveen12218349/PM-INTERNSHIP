@@ -1,14 +1,14 @@
 # InternMatch - PM Internship Recommendation Platform
 
-InternMatch is an AI-powered, real-time internship recommendation and tracking platform built specifically for Product Management roles. It bridges the gap between student resumes and live job opportunities through dynamic skill extraction and precision matching.
+InternMatch is an AI-powered, real-time internship recommendation and tracking platform built specifically for the Prime Minister's Internship Scheme. It bridges the gap between student resumes and live government and top-tier corporate internship opportunities through dynamic skill extraction and precision matching.
 
 ## 🚀 Key Features
 
 *   **Real-time Scraping:** Dynamically fetches the latest internship opportunities from platforms like Internshala.
-*   **AI Skill Extraction:** Analyzes user-uploaded PDF resumes to automatically extract relevant product management and technical skills.
+*   **AI Skill Extraction:** Analyzes user-uploaded PDF resumes to automatically extract relevant vocational, technical, and soft skills aligned with the PM Internship Scheme.
 *   **Precision Match Algorithm:** Calculates match scores (0-100%) by comparing extracted resume skills against scraped internship requirements.
 *   **Gap Analysis & Upskilling:** Identifies missing skills for specific roles and provides direct links to Coursera for immediate upskilling.
-*   **AI Interview Assistant (Beta):** Simulated AI chatbot that quizzes applicants with common Product Management interview questions to help them prep.
+*   **AI Interview Assistant (Beta):** Simulated AI chatbot that quizzes applicants with common PM Internship Scheme interview questions to help them prep.
 *   **Application Tracking:** Users can save, track, and update the status of their internship applications directly from their dashboard.
 *   **Email Notifications:** Automated email alerts when application statuses change (e.g., from 'Pending' to 'Approved').
 *   **Admin Dashboard:** Centralized control center to manually trigger web scrapers and view platform analytics.

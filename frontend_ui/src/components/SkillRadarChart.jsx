@@ -1,12 +1,12 @@
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Tooltip } from 'recharts';
 
 const CATEGORIES = {
-  "Data & Analytics": ["sql", "python", "excel", "data", "metrics", "analytics", "a/b testing", "statistics", "machine learning", "ai"],
-  "Strategy & Vision": ["roadmap", "market research", "go-to-market", "strategy", "vision", "competitor analysis", "pricing"],
-  "Technical": ["api", "system design", "architecture", "cloud", "aws", "software", "development", "coding", "java", "c++", "javascript"],
-  "UX & Design": ["figma", "wireframing", "prototyping", "user research", "ui", "ux", "design", "usability"],
-  "Marketing & Growth": ["marketing", "growth", "seo", "campaigns", "customer acquisition", "sales", "content"],
-  "Agile & Execution": ["agile", "scrum", "jira", "sprint", "user stories", "execution", "project management", "kanban"]
+  "IT & Data": ["sql", "python", "excel", "data", "software", "development", "it", "computer", "typing"],
+  "Operations & Admin": ["operations", "admin", "management", "logistics", "supply chain", "coordination"],
+  "Manufacturing": ["manufacturing", "production", "mechanical", "electrical", "maintenance", "quality"],
+  "Communications": ["communication", "writing", "english", "public relations", "customer service"],
+  "Sales & Marketing": ["marketing", "sales", "business development", "campaigns", "social media"],
+  "Finance & Accounts": ["finance", "accounting", "tally", "tax", "audit", "billing"]
 };
 
 export default function SkillRadarChart({ userSkills = [] }) {

@@ -97,7 +97,7 @@ def fetch_internships_by_category(category_slug=""):
 
 # To maintain backwards compatibility with ml_base/apply_now.py for the original flow:
 def fetch_pm_internships():
-    return fetch_internships_by_category("product-management")
+    return fetch_internships_by_category("government")
 
 def save_to_db(internships):
     if not internships:

@@ -155,18 +155,18 @@ export default function Home() {
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-[#00A5EC] font-semibold text-sm mb-6 shadow-sm">
                 <Sparkles className="w-4 h-4" />
-                <span>V3 Now Live: AI-Powered Matches</span>
+                <span>PM Internship Scheme 2026 Live</span>
               </div>
               
               <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 leading-[1.1] mb-6 tracking-tight">
-                Unlock your future in <br/>
+                Contribute to <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A5EC] to-blue-600">
-                  Tech & Product
+                  Nation Building
                 </span>
               </h1>
               
               <p className="text-xl text-gray-600 mb-10 leading-relaxed max-w-lg">
-                Stop applying blindly. Our AI instantly maps your resume to hundreds of high-growth startup internships with precise skill gap analysis.
+                Stop applying blindly. Our AI maps your skills to the top companies participating in the Prime Minister's Internship Scheme.
               </p>
               
               {!token && (
@@ -225,8 +225,8 @@ export default function Home() {
                         <div className="h-3 w-48 bg-gray-100 rounded-md"></div>
                       </div>
                       <div className="flex -space-x-2">
-                         <div className="w-8 h-8 rounded-full border-2 border-white bg-blue-100 flex items-center justify-center text-[10px] font-bold text-blue-600">PM</div>
-                         <div className="w-8 h-8 rounded-full border-2 border-white bg-purple-100 flex items-center justify-center text-[10px] font-bold text-purple-600">UX</div>
+                         <div className="w-8 h-8 rounded-full border-2 border-white bg-blue-100 flex items-center justify-center text-[10px] font-bold text-blue-600">GOV</div>
+                         <div className="w-8 h-8 rounded-full border-2 border-white bg-green-100 flex items-center justify-center text-[10px] font-bold text-green-600">IND</div>
                       </div>
                     </div>
                     
@@ -295,7 +295,7 @@ export default function Home() {
                 <Bot className="w-6 h-6" />
               </div>
               <h3 className="font-bold text-gray-900 mb-2">AI Interview Prep</h3>
-              <p className="text-gray-500 text-sm">Practice with our AI assistant tailored specifically to product management roles.</p>
+              <p className="text-gray-500 text-sm">Practice with our AI assistant tailored specifically to PM Internship Scheme roles.</p>
             </div>
           </div>
         </div>
