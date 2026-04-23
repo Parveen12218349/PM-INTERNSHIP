@@ -155,11 +155,11 @@ export default function Home() {
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-[#00A5EC] font-semibold text-sm mb-6 shadow-sm">
                 <Sparkles className="w-4 h-4" />
-                <span>PM Internship Scheme 2026 Live</span>
+                <span>Prime Minister's Internship Scheme 2026</span>
               </div>
               
               <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 leading-[1.1] mb-6 tracking-tight">
-                Your Gateway to <br/>
+                <span className="block mb-2 text-xl font-extrabold text-gray-900 tracking-tight">GovIntern</span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-blue-600">
                   National Progress
                 </span>
@@ -295,7 +295,7 @@ export default function Home() {
                 <Bot className="w-6 h-6" />
               </div>
               <h3 className="font-bold text-gray-900 mb-2">AI Interview Prep</h3>
-              <p className="text-gray-500 text-sm">Practice with our AI assistant tailored specifically to PM Internship Scheme roles.</p>
+              <p className="text-gray-500 text-sm">Practice with our AI assistant tailored specifically to official scheme internship roles.</p>
             </div>
           </div>
         </div>
@@ -306,7 +306,7 @@ export default function Home() {
         <div className="bg-gray-50 py-20 flex-grow">
           <div className="max-w-3xl mx-auto px-4">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-gray-900 mb-3">Initialize your Profile</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-3"><span className="text-xl font-extrabold text-gray-900 tracking-tight">GovIntern</span>Initialize your Profile</h2>
               <p className="text-gray-600">Upload your PDF resume to extract your skills and generate personalized matches.</p>
             </div>
             

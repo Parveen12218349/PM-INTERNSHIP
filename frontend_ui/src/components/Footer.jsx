@@ -11,7 +11,7 @@ export default function Footer() {
               <div className="w-8 h-8 rounded bg-[#00A5EC] flex items-center justify-center text-white font-bold">
                 IM
               </div>
-              <span className="text-xl font-extrabold text-gray-900 tracking-tight">InternMatch</span>
+              <span className="text-xl font-extrabold text-gray-900 tracking-tight">GovIntern</span>
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed">
               The premier platform for connecting ambitious students with verified roles under the Prime Minister's Internship Scheme.
@@ -48,7 +48,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-100 mt-12 pt-8 text-center text-gray-500 text-sm">
-          &copy; {new Date().getFullYear()} InternMatch. All rights reserved.
+          &copy; {new Date().getFullYear()} GovIntern. All rights reserved.
         </div>
       </div>
     </footer>

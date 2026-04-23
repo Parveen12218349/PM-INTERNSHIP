@@ -44,8 +44,8 @@ export default function CategoryInternships() {
         {/* Simple mock tabs for Categories */}
         <div className="flex bg-gray-100 rounded-lg p-1">
           <Link to="/internships/explore-all" className={`px-4 py-2 text-sm font-semibold rounded-md transition-all ${fetchCategory === 'explore-all' ? 'bg-white shadow-sm text-[#00A5EC]' : 'text-gray-500 hover:text-gray-700'}`}>All Roles</Link>
-          <Link to="/internships/product-management" className={`px-4 py-2 text-sm font-semibold rounded-md transition-all ${fetchCategory === 'product-management' ? 'bg-white shadow-sm text-[#00A5EC]' : 'text-gray-500 hover:text-gray-700'}`}>PM</Link>
-          <Link to="/internships/software-engineering" className={`px-4 py-2 text-sm font-semibold rounded-md transition-all ${fetchCategory === 'software-engineering' ? 'bg-white shadow-sm text-[#00A5EC]' : 'text-gray-500 hover:text-gray-700'}`}>Engineering</Link>
+          <Link to="/internships/government" className={`px-4 py-2 text-sm font-semibold rounded-md transition-all ${fetchCategory === 'government' ? 'bg-white shadow-sm text-[#00A5EC]' : 'text-gray-500 hover:text-gray-700'}`}>Public Sector</Link>
+          <Link to="/internships/manufacturing" className={`px-4 py-2 text-sm font-semibold rounded-md transition-all ${fetchCategory === 'manufacturing' ? 'bg-white shadow-sm text-[#00A5EC]' : 'text-gray-500 hover:text-gray-700'}`}>Manufacturing</Link>
         </div>
       </div>
 

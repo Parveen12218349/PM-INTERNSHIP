@@ -5,7 +5,7 @@ export default function About() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-16">
       <div className="text-center mb-16">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">Empowering Youth Through PM Internship Scheme</h1>
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">Empowering Youth Through the Prime Minister's Internship Scheme</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           We bridge the gap between talented students and top-tier companies by parsing skills and matching them with live opportunities under the Prime Minister's Internship Scheme.
         </p>

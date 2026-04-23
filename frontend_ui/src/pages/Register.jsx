@@ -25,7 +25,7 @@ export default function Register() {
       <div className="glass-panel p-8">
         <div className="text-center mb-8">
           <div className="w-12 h-12 rounded bg-[#00A5EC] flex items-center justify-center text-white font-bold mx-auto mb-4">
-            IM
+            GI
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Create an Account</h2>
           <p className="text-sm text-gray-500">Join to unlock AI matching and tracking.</p>
