@@ -13,7 +13,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Profile from './pages/Profile';
 import Footer from './components/Footer';
-import { UserCircle } from 'lucide-react';
+import InterviewAssistant from './pages/InterviewAssistant';
+import { UserCircle, Bot } from 'lucide-react';
 
 function AppContent() {
   const { user, logout } = useAuth();
@@ -37,6 +38,7 @@ function AppContent() {
               <div className="hidden md:flex items-center gap-6">
                 <Link to="/" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">Home</Link>
                 <Link to="/internships" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">Internships</Link>
+                <Link to="/interview-prep" className="text-sm font-medium text-[#00A5EC] hover:text-blue-600 transition-colors flex items-center gap-1.5"><Bot className="w-4 h-4"/> AI Prep</Link>
                 <Link to="/about" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">About</Link>
                 <Link to="/contact" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">Contact</Link>
               </div>
@@ -81,6 +83,7 @@ function AppContent() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/results" element={<Results />} />
           <Route path="/internships/:category?" element={<CategoryInternships />} />
+          <Route path="/interview-prep" element={<InterviewAssistant />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
