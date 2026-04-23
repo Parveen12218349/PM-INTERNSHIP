@@ -43,12 +43,10 @@ def register_user(user: UserRegister):
             else:
                 # Resend token for unverified user
                 hashed_password = get_password_hash(user.password)
-                verification_token = create_verification_token(user.email)
-                
                 try:
                     cursor.execute(
-                        "UPDATE users SET password_hash = %s, verification_token = %s WHERE id = %s",
-                        (hashed_password, verification_token, existing_user['id'])
+                        "UPDATE users SET password_hash = %s, is_verified = TRUE, verification_token = NULL WHERE id = %s",
+                        (hashed_password, existing_user['id'])
                     )
                     db.commit()
                 except Exception as e:
@@ -58,8 +56,7 @@ def register_user(user: UserRegister):
                     cursor.close()
                     db.close()
                     
-                send_verification_email(user.email, verification_token)
-                return {"message": "Verification email resent."}
+                return {"message": "User registered and auto-verified successfully."}
             
         hashed_password = get_password_hash(user.password)
         verification_token = create_verification_token(user.email)
@@ -70,9 +67,10 @@ def register_user(user: UserRegister):
         role = "admin" if count_result['count'] == 0 else "user"
         
         try:
+            # We insert with is_verified=TRUE to bypass email verification requirement permanently
             cursor.execute(
-                "INSERT INTO users (email, password_hash, role, verification_token) VALUES (%s, %s, %s, %s)",
-                (user.email, hashed_password, role, verification_token)
+                "INSERT INTO users (email, password_hash, role, is_verified, verification_token) VALUES (%s, %s, %s, TRUE, NULL)",
+                (user.email, hashed_password, role)
             )
             db.commit()
         except Exception as e:
@@ -82,9 +80,7 @@ def register_user(user: UserRegister):
             cursor.close()
             db.close()
             
-        send_verification_email(user.email, verification_token)
-        
-        return {"message": "User registered successfully."}
+        return {"message": "User registered and auto-verified successfully."}
     except HTTPException:
         raise
     except Exception as e:

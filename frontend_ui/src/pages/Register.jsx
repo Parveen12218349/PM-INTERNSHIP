@@ -13,7 +13,8 @@ export default function Register() {
     e.preventDefault();
     try {
       const data = await register(email, password);
-      navigate('/verify-email');
+      // Auto-verified, go straight to login
+      navigate('/login');
     } catch (err) {
       setError(err.message);
     }
