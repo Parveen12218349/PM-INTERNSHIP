@@ -33,11 +33,33 @@ def register_user(user: UserRegister):
         cursor = db.cursor(dictionary=True)
         
         # Check if user exists
-        cursor.execute("SELECT id FROM users WHERE email = %s", (user.email,))
-        if cursor.fetchone():
-            cursor.close()
-            db.close()
-            raise HTTPException(status_code=400, detail="Email already registered")
+        cursor.execute("SELECT id, is_verified FROM users WHERE email = %s", (user.email,))
+        existing_user = cursor.fetchone()
+        if existing_user:
+            if existing_user['is_verified']:
+                cursor.close()
+                db.close()
+                raise HTTPException(status_code=400, detail="Email already registered")
+            else:
+                # Resend token for unverified user
+                hashed_password = get_password_hash(user.password)
+                verification_token = create_verification_token(user.email)
+                
+                try:
+                    cursor.execute(
+                        "UPDATE users SET password_hash = %s, verification_token = %s WHERE id = %s",
+                        (hashed_password, verification_token, existing_user['id'])
+                    )
+                    db.commit()
+                except Exception as e:
+                    db.rollback()
+                    raise HTTPException(status_code=500, detail=f"Update failed: {str(e)}")
+                finally:
+                    cursor.close()
+                    db.close()
+                    
+                send_verification_email(user.email, verification_token)
+                return {"message": "Verification email resent.", "demo_token": verification_token}
             
         hashed_password = get_password_hash(user.password)
         verification_token = create_verification_token(user.email)

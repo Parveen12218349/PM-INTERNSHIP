@@ -1,15 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { Mail } from 'lucide-react';
 
 export default function VerifyEmail() {
-  const [token, setToken] = useState('');
   const [error, setError] = useState('');
   const { verify } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const demoToken = location.state?.demoToken;
+  const urlToken = searchParams.get('token');
+  const [token, setToken] = useState(urlToken || '');
+
+  useEffect(() => {
+    if (urlToken) {
+      verify(urlToken).then(() => {
+        navigate('/login');
+      }).catch(err => {
+        setError(err.message);
+      });
+    }
+  }, [urlToken, verify, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
