@@ -21,7 +21,8 @@ export default function Profile() {
     location: '',
     degree: '',
     skills: [],
-    resumeUrl: ''
+    resumeUrl: '',
+    profilePic: null
   });
 
   // Calculate Completion Percentage
@@ -82,6 +83,17 @@ export default function Profile() {
     }
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfile(prev => ({ ...prev, profilePic: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   if (!user) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -110,9 +122,20 @@ export default function Profile() {
         
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-6">
-            <div className="relative">
-              <div className="w-24 h-24 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center border-4 border-white shadow-xl">
-                <User className="w-12 h-12" />
+            <div className="relative group cursor-pointer" onClick={() => document.getElementById('profile-pic-input').click()}>
+              <input 
+                type="file" id="profile-pic-input" className="hidden" 
+                accept="image/*" onChange={handleImageUpload} 
+              />
+              <div className="w-24 h-24 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center border-4 border-white shadow-xl overflow-hidden relative">
+                {profile.profilePic ? (
+                  <img src={profile.profilePic} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  <User className="w-12 h-12" />
+                )}
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <UploadCloud className="w-6 h-6 text-white" />
+                </div>
               </div>
               <div className="absolute -bottom-2 -right-2 bg-white p-1.5 rounded-lg shadow-md border border-gray-100">
                 <CheckCircle2 className={`w-5 h-5 ${completion === 100 ? 'text-green-500' : 'text-gray-300'}`} />
