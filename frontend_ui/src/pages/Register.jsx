@@ -13,8 +13,7 @@ export default function Register() {
     e.preventDefault();
     try {
       const data = await register(email, password);
-      // Auto-verified, go straight to login
-      navigate('/login');
+      navigate('/verify-otp', { state: { email } });
     } catch (err) {
       setError(err.message);
     }

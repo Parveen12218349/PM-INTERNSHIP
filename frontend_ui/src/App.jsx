@@ -12,6 +12,7 @@ import CategoryInternships from './pages/CategoryInternships';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Profile from './pages/Profile';
+import VerifyOTP from './pages/VerifyOTP';
 import Footer from './components/Footer';
 import InterviewAssistant from './pages/InterviewAssistant';
 import { UserCircle, Bot } from 'lucide-react';
@@ -90,6 +91,7 @@ function AppContent() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route path="/verify-otp" element={<VerifyOTP />} />
           
           <Route path="/profile" element={
             <ProtectedRoute>

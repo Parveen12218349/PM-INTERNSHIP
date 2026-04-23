@@ -6,15 +6,19 @@ import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from database.database import get_connection
-from auth.security import get_password_hash, verify_password, create_access_token, create_verification_token
+from auth.security import get_password_hash, verify_password, create_access_token
 from auth.deps import get_current_user, get_admin_user
-from auth.email import send_verification_email
+from auth.email import send_verification_email, generate_otp
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 class UserRegister(BaseModel):
     email: EmailStr
     password: str
+
+class VerifyOTPRequest(BaseModel):
+    email: EmailStr
+    otp: str
 
 class Token(BaseModel):
     access_token: str
@@ -35,59 +39,75 @@ def register_user(user: UserRegister):
         # Check if user exists
         cursor.execute("SELECT id, is_verified FROM users WHERE email = %s", (user.email,))
         existing_user = cursor.fetchone()
+        
+        hashed_password = get_password_hash(user.password)
+        otp = generate_otp()
+        
         if existing_user:
             if existing_user['is_verified']:
                 cursor.close()
                 db.close()
-                raise HTTPException(status_code=400, detail="Email already registered")
+                raise HTTPException(status_code=400, detail="Email already registered and verified")
             else:
-                # Resend token for unverified user
-                hashed_password = get_password_hash(user.password)
-                try:
-                    cursor.execute(
-                        "UPDATE users SET password_hash = %s, is_verified = TRUE, verification_token = NULL WHERE id = %s",
-                        (hashed_password, existing_user['id'])
-                    )
-                    db.commit()
-                except Exception as e:
-                    db.rollback()
-                    raise HTTPException(status_code=500, detail=f"Update failed: {str(e)}")
-                finally:
-                    cursor.close()
-                    db.close()
-                    
-                return {"message": "User registered and auto-verified successfully."}
+                # Update existing unverified user with new OTP and password
+                cursor.execute(
+                    "UPDATE users SET password_hash = %s, verification_token = %s WHERE id = %s",
+                    (hashed_password, otp, existing_user['id'])
+                )
+                db.commit()
+                send_verification_email(user.email, otp)
+                cursor.close()
+                db.close()
+                return {"message": "OTP resent. Please check your email."}
             
-        hashed_password = get_password_hash(user.password)
-        verification_token = create_verification_token(user.email)
-        
-        # Optional: If this is the very first user, we might want to make them an admin automatically
+        # New user registration
         cursor.execute("SELECT COUNT(id) as count FROM users")
         count_result = cursor.fetchone()
         role = "admin" if count_result['count'] == 0 else "user"
         
-        try:
-            # We insert with is_verified=TRUE to bypass email verification requirement permanently
-            cursor.execute(
-                "INSERT INTO users (email, password_hash, role, is_verified, verification_token) VALUES (%s, %s, %s, TRUE, NULL)",
-                (user.email, hashed_password, role)
-            )
-            db.commit()
-        except Exception as e:
-            db.rollback()
-            raise HTTPException(status_code=500, detail=f"Insert failed: {str(e)}")
-        finally:
-            cursor.close()
-            db.close()
+        cursor.execute(
+            "INSERT INTO users (email, password_hash, role, is_verified, verification_token) VALUES (%s, %s, %s, FALSE, %s)",
+            (user.email, hashed_password, role, otp)
+        )
+        db.commit()
+        send_verification_email(user.email, otp)
+        cursor.close()
+        db.close()
             
-        return {"message": "User registered and auto-verified successfully."}
+        return {"message": "Registration successful! Please enter the OTP sent to your email."}
     except HTTPException:
         raise
     except Exception as e:
-        import traceback
-        error_msg = f"{type(e).__name__}: {str(e)} | {traceback.format_exc()}"
-        print(error_msg)
-        raise HTTPException(status_code=500, detail=error_msg)
+        print(f"Registration Error: {e}")
+        raise HTTPException(status_code=500, detail="Registration failed")
+
+@router.post("/verify-otp")
+def verify_otp(request: VerifyOTPRequest):
+    db = get_connection()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT id, verification_token FROM users WHERE email = %s", (request.email,))
+    user = cursor.fetchone()
+    
+    if not user:
+        cursor.close()
+        db.close()
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if user['verification_token'] != request.otp:
+        cursor.close()
+        db.close()
+        raise HTTPException(status_code=400, detail="Invalid OTP code")
+    
+    # Verify the user
+    cursor.execute(
+        "UPDATE users SET is_verified = TRUE, verification_token = NULL WHERE id = %s",
+        (user['id'],)
+    )
+    db.commit()
+    cursor.close()
+    db.close()
+    
+    return {"message": "Email verified successfully! You can now login."}
 
 @router.post("/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
@@ -108,39 +128,11 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
     if not user['is_verified']:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Email not verified. Please check your inbox."
+            detail="Account not verified. Please check your email for the OTP."
         )
         
     access_token = create_access_token(data={"sub": user['email'], "role": user['role']})
     return {"access_token": access_token, "token_type": "bearer"}
-
-@router.get("/verify-all")
-def verify_all():
-    try:
-        db = get_connection()
-        cursor = db.cursor()
-        cursor.execute("UPDATE users SET is_verified = TRUE, verification_token = NULL, role = 'admin'")
-        db.commit()
-        cursor.close()
-        db.close()
-        return {"message": "All users have been verified AND made Admins! Please log out and log back in to see the Admin Panel."}
-    except Exception as e:
-        return {"error": str(e)}
-
-@router.get("/verify-email")
-def verify_email(token: str):
-    db = get_connection()
-    cursor = db.cursor()
-    cursor.execute("UPDATE users SET is_verified = TRUE, verification_token = NULL WHERE verification_token = %s", (token,))
-    if cursor.rowcount == 0:
-        cursor.close()
-        db.close()
-        raise HTTPException(status_code=400, detail="Invalid or expired verification code")
-        
-    db.commit()
-    cursor.close()
-    db.close()
-    return {"message": "Email successfully verified. You can now login."}
 
 @router.get("/me", response_model=UserResponse)
 def get_me(current_user: dict = Depends(get_current_user)):
@@ -150,17 +142,3 @@ def get_me(current_user: dict = Depends(get_current_user)):
         "role": current_user["role"],
         "is_verified": bool(current_user["is_verified"])
     }
-
-@router.get("/admin/users")
-def get_all_users(current_user: dict = Depends(get_admin_user)):
-    db = get_connection()
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT id, email, role, is_verified FROM users ORDER BY id DESC")
-    users = cursor.fetchall()
-    cursor.close()
-    db.close()
-    
-    # Ensure is_verified is boolean for frontend
-    for u in users:
-        u['is_verified'] = bool(u['is_verified'])
-    return users

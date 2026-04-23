@@ -82,9 +82,13 @@ export const AuthProvider = ({ children }) => {
     return await response.json();
   };
 
-  const verify = async (token) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/verify-email?token=${token}`, {
-      method: 'GET'
+  const verifyOTP = async (email, otp) => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/verify-otp`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, otp })
     });
     if (!response.ok) {
       const errorData = await response.json();
@@ -98,7 +102,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, verify, logout }}>
+    <AuthContext.Provider value={{ user, token, loading, login, register, verify, verifyOTP, logout }}>
       {children}
     </AuthContext.Provider>
   );
