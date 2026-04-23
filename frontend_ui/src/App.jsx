@@ -58,7 +58,10 @@ function AppContent() {
                   </Link>
                   <Link to="/profile" className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-[#00A5EC] transition-colors">
                     <UserCircle className="w-5 h-5 text-gray-400" />
-                    {user.email.split('@')[0]}
+                    {(() => {
+                      const name = user.email.split('@')[0].replace(/[0-9]/g, '');
+                      return name.charAt(0).toUpperCase() + name.slice(1);
+                    })()}
                   </Link>
                 </div>
               ) : (
