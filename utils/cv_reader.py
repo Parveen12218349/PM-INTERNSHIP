@@ -24,17 +24,19 @@ SKILLS_DB = [
     "coordination", "public relations", "customer service", "hr", "recruitment",
     # Manufacturing & Technical
     "manufacturing", "production", "mechanical", "electrical", "maintenance",
-    "quality control", "safety", "inventory management", "procurement",
-    # Finance & Business
-    "finance", "accounting", "tally", "tax", "audit", "billing", "sales", 
-    "marketing", "business development", "market research",
+    "quality control", "safety", "inventory management", "procurement", "automobile",
+    # Healthcare & Science
+    "healthcare", "pharmacy", "medical", "nursing", "laboratory", "biology", "chemistry",
+    # Agriculture & Environment
+    "agriculture", "farming", "horticulture", "environmental science", "rural development",
+    # Finance, Law & Admin
+    "finance", "accounting", "tally", "legal", "law", "compliance", "administration",
+    "hr", "recruitment", "sales", "marketing", "public relations",
     # IT & Digital
-    "it support", "computer hardware", "software", "typing", "data entry",
-    "ms office", "excel", "word", "powerpoint", "outlook", "internet",
-    "social media", "sql", "python", "digital marketing",
+    "it support", "software", "typing", "data entry", "ms office", "excel", "word",
+    "python", "sql", "digital marketing", "media", "journalism",
     # Soft Skills
-    "communication", "teamwork", "leadership", "problem solving", 
-    "time management", "english", "hindi", "regional language"
+    "communication", "teamwork", "leadership", "english", "hindi", "regional language"
 ]
 
 def extract_skills(text):

@@ -1,12 +1,12 @@
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Tooltip } from 'recharts';
 
 const CATEGORIES = {
-  "IT & Data": ["sql", "python", "excel", "data", "software", "development", "it", "computer", "typing"],
-  "Operations & Admin": ["operations", "admin", "management", "logistics", "supply chain", "coordination"],
-  "Manufacturing": ["manufacturing", "production", "mechanical", "electrical", "maintenance", "quality"],
-  "Communications": ["communication", "writing", "english", "public relations", "customer service"],
-  "Sales & Marketing": ["marketing", "sales", "business development", "campaigns", "social media"],
-  "Finance & Accounts": ["finance", "accounting", "tally", "tax", "audit", "billing"]
+  "IT & Digital": ["sql", "python", "software", "it", "typing", "digital"],
+  "Manufacturing": ["manufacturing", "production", "mechanical", "electrical", "automobile"],
+  "Healthcare": ["healthcare", "medical", "nursing", "pharmacy", "biology"],
+  "Agriculture": ["agriculture", "farming", "horticulture", "rural"],
+  "Finance & Legal": ["finance", "accounting", "tally", "legal", "law"],
+  "Media & Admin": ["media", "journalism", "admin", "management", "communication"]
 };
 
 export default function SkillRadarChart({ userSkills = [] }) {

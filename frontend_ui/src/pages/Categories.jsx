@@ -4,11 +4,12 @@ import { Database, Code2, Megaphone, PenTool, Briefcase, Compass } from 'lucide-
 
 export default function Categories() {
   const categories = [
-    { name: "Operations", slug: "operations", icon: <Database className="w-8 h-8" />, color: "from-blue-500 to-cyan-500", shadow: "shadow-blue-500/20" },
-    { name: "IT & Digital", slug: "it", icon: <Code2 className="w-8 h-8" />, color: "from-green-500 to-emerald-500", shadow: "shadow-green-500/20" },
-    { name: "Marketing & Sales", slug: "marketing", icon: <Megaphone className="w-8 h-8" />, color: "from-pink-500 to-rose-500", shadow: "shadow-pink-500/20" },
-    { name: "Administration", slug: "administration", icon: <Briefcase className="w-8 h-8" />, color: "from-indigo-500 to-violet-500", shadow: "shadow-indigo-500/20" },
-    { name: "Explore PM Scheme", slug: "government", icon: <Compass className="w-8 h-8" />, color: "from-slate-400 to-slate-600", shadow: "shadow-slate-500/20" },
+    { name: "Agriculture & Rural", slug: "agriculture", icon: <Compass className="w-8 h-8" />, color: "from-green-500 to-emerald-500", shadow: "shadow-green-500/20" },
+    { name: "Healthcare & Pharma", slug: "healthcare", icon: <Users className="w-8 h-8" />, color: "from-red-500 to-rose-500", shadow: "shadow-red-500/20" },
+    { name: "Manufacturing & Auto", slug: "manufacturing", icon: <Database className="w-8 h-8" />, color: "from-slate-500 to-slate-700", shadow: "shadow-slate-500/20" },
+    { name: "IT & Electronics", slug: "it", icon: <Code2 className="w-8 h-8" />, color: "from-blue-500 to-indigo-500", shadow: "shadow-blue-500/20" },
+    { name: "Finance & Banking", slug: "finance", icon: <Briefcase className="w-8 h-8" />, color: "from-amber-500 to-orange-500", shadow: "shadow-amber-500/20" },
+    { name: "Education & Media", slug: "education", icon: <Megaphone className="w-8 h-8" />, color: "from-purple-500 to-violet-500", shadow: "shadow-purple-500/20" },
   ];
 
   const containerVariants = {

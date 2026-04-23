@@ -142,7 +142,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-[#f8f9fa]">
       {/* Premium Hero Section */}
       <div className="relative overflow-hidden bg-white border-b border-gray-100">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-50 via-white to-white opacity-70"></div>
+        <div className="absolute top-0 left-0 w-full h-h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-orange-50 via-white to-blue-50 opacity-70"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-16">
@@ -159,14 +159,14 @@ export default function Home() {
               </div>
               
               <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 leading-[1.1] mb-6 tracking-tight">
-                Contribute to <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A5EC] to-blue-600">
-                  Nation Building
+                Your Gateway to <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-blue-600">
+                  National Progress
                 </span>
               </h1>
               
               <p className="text-xl text-gray-600 mb-10 leading-relaxed max-w-lg">
-                Stop applying blindly. Our AI maps your skills to the top companies participating in the Prime Minister's Internship Scheme.
+                The official AI-powered matching engine for the Prime Minister's Internship Scheme. Discover opportunities across 500+ top companies in every sector—from Manufacturing to Healthcare.
               </p>
               
               {!token && (
@@ -200,8 +200,8 @@ export default function Home() {
               className="lg:w-1/2 w-full relative"
             >
               {/* Decorative elements */}
-              <div className="absolute -top-10 -right-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-              <div className="absolute -bottom-10 -left-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+              <div className="absolute -top-10 -right-10 w-72 h-72 bg-orange-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+              <div className="absolute -bottom-10 -left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
               
               {/* Premium Dashboard Mockup */}
               <div className="glass-panel p-2 rounded-2xl shadow-2xl bg-white/50 backdrop-blur-sm border border-white/40 transform rotate-1 hover:rotate-0 transition-transform duration-500">
@@ -214,7 +214,7 @@ export default function Home() {
                     </div>
                     <div className="mx-auto bg-white border border-gray-200 text-gray-400 text-xs px-24 py-1 rounded-md flex items-center gap-2">
                       <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-                      internmatch.io/dashboard
+                      pminternship.mca.gov.in
                     </div>
                   </div>
                   
