@@ -156,7 +156,6 @@ export default function Home() {
 
               
               <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 leading-[1.1] mb-6 tracking-tight">
-                <span className="block mb-2 text-xl font-extrabold text-gray-900 tracking-tight">GovIntern</span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-blue-600">
                   National Progress
                 </span>
@@ -303,7 +302,7 @@ export default function Home() {
         <div className="bg-gray-50 py-20 flex-grow">
           <div className="max-w-3xl mx-auto px-4">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-gray-900 mb-3"><span className="text-xl font-extrabold text-gray-900 tracking-tight">GovIntern</span>Initialize your Profile</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-3">Initialize your Profile</h2>
               <p className="text-gray-600">Upload your PDF resume to extract your skills and generate personalized matches.</p>
             </div>
             
