@@ -38,7 +38,7 @@ function AppContent() {
               <div className="hidden md:flex items-center gap-6">
                 <Link to="/" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">Home</Link>
                 <Link to="/internships" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">Internships</Link>
-                <Link to="/interview-prep" className="text-sm font-medium text-[#00A5EC] hover:text-blue-600 transition-colors flex items-center gap-1.5"><Bot className="w-4 h-4"/> AI Interview Prep</Link>
+                <Link to="/interview-prep" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors flex items-center gap-1.5"><Bot className="w-4 h-4"/> AI Interview Prep</Link>
                 <Link to="/about" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">About</Link>
                 <Link to="/contact" className="text-sm font-medium text-gray-600 hover:text-[#00A5EC] transition-colors">Contact</Link>
               </div>

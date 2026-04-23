@@ -153,10 +153,7 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="lg:w-1/2"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-[#00A5EC] font-semibold text-sm mb-6 shadow-sm">
-                <Sparkles className="w-4 h-4" />
-                <span>Prime Minister's Internship Scheme 2026</span>
-              </div>
+
               
               <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 leading-[1.1] mb-6 tracking-tight">
                 <span className="block mb-2 text-xl font-extrabold text-gray-900 tracking-tight">GovIntern</span>
