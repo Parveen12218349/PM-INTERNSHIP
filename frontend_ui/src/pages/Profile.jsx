@@ -260,7 +260,20 @@ export default function Profile() {
             <h3 className="text-sm font-bold text-gray-900 mb-4 uppercase tracking-widest">Account Settings</h3>
             <div className="space-y-2">
               <div className="p-3 bg-gray-50 rounded-xl border border-gray-100">
-                <div className="text-[10px] font-bold text-gray-400 uppercase mb-1">Email Address</div>
+                <div className="text-[10px] font-bold text-gray-400 uppercase mb-1 flex justify-between items-center">
+                  Email Address
+                  {user.is_verified ? (
+                    <span className="text-green-600 font-bold flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3" />
+                      VERIFIED
+                    </span>
+                  ) : (
+                    <span className="text-red-500 font-bold flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3" />
+                      UNVERIFIED
+                    </span>
+                  )}
+                </div>
                 <div className="text-sm font-semibold text-gray-700 truncate">{user.email}</div>
               </div>
               <button onClick={logout} className="w-full p-3 text-left text-red-600 font-bold text-sm hover:bg-red-50 rounded-xl transition-colors flex items-center justify-between">
