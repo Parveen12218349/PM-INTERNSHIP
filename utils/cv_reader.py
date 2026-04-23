@@ -19,19 +19,22 @@ def extract_text_from_bytes(pdf_bytes):
 #     print(text[:500])
 
 SKILLS_DB = [
-    # PM Core
-    "product management", "agile", "scrum", "jira", "kanban", 
-    "product roadmap", "prd", "user research", "a/b testing", 
-    "wireframing", "prototyping", "figma", "go-to-market", "gtm",
-    "market research", "competitor analysis", "user stories",
-    "stakeholder management", "metrics", "kpi", "okr",
-    # Data & Analytics
-    "data analysis", "sql", "excel", "power bi", "tableau", 
-    "google analytics", "mixpanel", "amplitude", "python",
-    "machine learning", "ai", "deep learning", "nlp",
-    # Tech/Engineering
-    "java", "c++", "javascript", "react", "node.js", "django", 
-    "flask", "aws", "cloud", "api", "system design"
+    # General Operations & Admin
+    "operations", "administration", "management", "logistics", "supply chain",
+    "coordination", "public relations", "customer service", "hr", "recruitment",
+    # Manufacturing & Technical
+    "manufacturing", "production", "mechanical", "electrical", "maintenance",
+    "quality control", "safety", "inventory management", "procurement",
+    # Finance & Business
+    "finance", "accounting", "tally", "tax", "audit", "billing", "sales", 
+    "marketing", "business development", "market research",
+    # IT & Digital
+    "it support", "computer hardware", "software", "typing", "data entry",
+    "ms office", "excel", "word", "powerpoint", "outlook", "internet",
+    "social media", "sql", "python", "digital marketing",
+    # Soft Skills
+    "communication", "teamwork", "leadership", "problem solving", 
+    "time management", "english", "hindi", "regional language"
 ]
 
 def extract_skills(text):

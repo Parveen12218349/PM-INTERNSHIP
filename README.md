@@ -44,7 +44,7 @@ pm-intership-recommendation/
 └── utils/                    # Shared Python Utilities
     ├── cv_reader.py          # PDF text extraction and skill parsing
     ├── internship_scraper.py # Web scraping logic for Internshala
-    └── skills.py             # Product Management Skill Dictionary
+    ├── skills.py             # PM Scheme & Vocational Skill Dictionary
 ```
 
 ## ⚙️ Local Setup Instructions

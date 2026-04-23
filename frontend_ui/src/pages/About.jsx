@@ -5,9 +5,9 @@ export default function About() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-16">
       <div className="text-center mb-16">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">Empowering the Next Generation of PMs</h1>
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">Empowering Youth Through PM Internship Scheme</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          We bridge the gap between talented students and high-growth startups by parsing skills and matching them with live opportunities.
+          We bridge the gap between talented students and top-tier companies by parsing skills and matching them with live opportunities under the Prime Minister's Internship Scheme.
         </p>
       </div>
 
@@ -18,7 +18,7 @@ export default function About() {
           </div>
           <h3 className="text-xl font-bold text-gray-900 mb-3">Precision Matching</h3>
           <p className="text-gray-600 text-sm leading-relaxed">
-            Our AI engine maps your unique skills to the exact requirements of top product management and tech roles.
+            Our AI engine maps your unique skills to the exact requirements of top internship roles under the PM Scheme.
           </p>
         </div>
         <div className="glass-panel p-8 text-center">

@@ -20,9 +20,9 @@ def infer_skills(title):
     if "ai " in title_lower or "artificial intelligence" in title_lower or "machine learning" in title_lower:
         skills.extend(["ai", "machine learning", "python", "deep learning"])
     if "product" in title_lower and "manage" in title_lower:
-        skills.extend(["product management", "agile", "user stories", "market research", "strategy"])
-    if "growth" in title_lower or "marketing" in title_lower:
-        skills.extend(["go-to-market", "a/b testing", "google analytics", "seo", "campaigns"])
+        skills.extend(["operations", "management", "coordination", "administration", "leadership"])
+    if "government" in title_lower or "public" in title_lower:
+        skills.extend(["public relations", "administration", "compliance", "policy"])
     if "design" in title_lower or "ui" in title_lower or "ux" in title_lower:
         skills.extend(["figma", "wireframing", "prototyping", "user research", "ui", "ux"])
     if "finance" in title_lower or "accounting" in title_lower:

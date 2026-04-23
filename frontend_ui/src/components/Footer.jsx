@@ -14,7 +14,7 @@ export default function Footer() {
               <span className="text-xl font-extrabold text-gray-900 tracking-tight">InternMatch</span>
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed">
-              The premier platform for connecting ambitious students with verified product management and tech internships.
+              The premier platform for connecting ambitious students with verified roles under the Prime Minister's Internship Scheme.
             </p>
           </div>
           

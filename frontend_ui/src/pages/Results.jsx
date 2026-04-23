@@ -124,7 +124,7 @@ export default function Results() {
           <div>
             <h3 className="text-orange-800 font-bold text-lg mb-1">Calibration Notice</h3>
             <p className="text-orange-700 text-sm leading-relaxed">
-              We couldn't find a strong match for your current skill set. We are displaying trending PM internships instead. Review the "Gap Analysis" section to see what skills employers are looking for.
+              We couldn't find a strong match for your current skill set. We are displaying trending PM Scheme internships instead. Review the "Gap Analysis" section to see what skills employers are looking for.
             </p>
           </div>
         </motion.div>
