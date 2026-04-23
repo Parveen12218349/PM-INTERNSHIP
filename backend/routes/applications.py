@@ -68,6 +68,8 @@ def delete_application(application_id: int, current_user: dict = Depends(get_cur
     
     return {"message": "Application removed."}
 
+from backend.auth.email import send_status_update_email
+
 class ApplicationUpdate(BaseModel):
     status: str
 
@@ -78,16 +80,46 @@ def update_application_status(application_id: int, update: ApplicationUpdate, cu
         raise HTTPException(status_code=400, detail="Invalid status.")
 
     db = get_connection()
-    cursor = db.cursor()
+    cursor = db.cursor(dictionary=True)
     
-    cursor.execute("UPDATE applications SET status = %s WHERE id = %s AND user_id = %s", (update.status, application_id, current_user['id']))
+    # Get application and user details
+    cursor.execute("""
+        SELECT a.user_id, u.email, s.title, s.company, a.status as old_status
+        FROM applications a
+        JOIN users u ON a.user_id = u.id
+        JOIN scraped_internships s ON a.internship_id = s.id
+        WHERE a.id = %s
+    """, (application_id,))
     
-    if cursor.rowcount == 0:
+    app_info = cursor.fetchone()
+    
+    if not app_info:
         db.close()
-        raise HTTPException(status_code=404, detail="Application not found or no changes made.")
-        
+        raise HTTPException(status_code=404, detail="Application not found.")
+
+    # In a real app, you might restrict this to current_user['id'] == app_info['user_id'] or admin
+    if app_info['user_id'] != current_user['id'] and current_user['role'] != 'admin':
+        db.close()
+        raise HTTPException(status_code=403, detail="Permission denied.")
+
+    if app_info['old_status'] == update.status:
+        db.close()
+        return {"message": "Status unchanged."}
+
+    cursor.execute("UPDATE applications SET status = %s WHERE id = %s", (update.status, application_id))
     db.commit()
     cursor.close()
     db.close()
+    
+    # Send email notification asynchronously or directly
+    try:
+        send_status_update_email(
+            to_email=app_info['email'],
+            company=app_info['company'],
+            title=app_info['title'],
+            new_status=update.status
+        )
+    except Exception as e:
+        print(f"Error sending status update email: {e}")
     
     return {"message": "Application status updated successfully."}

@@ -55,3 +55,46 @@ def send_verification_email(to_email: str, token: str):
     except Exception as e:
         print(f"Failed to send email: {e}")
         return False
+
+def send_status_update_email(to_email: str, company: str, title: str, new_status: str):
+    if not SMTP_EMAIL or not SMTP_PASSWORD:
+        print(f"WARNING: SMTP credentials not set. Would have sent status update email to {to_email} for {company} - {title} to {new_status}")
+        return False
+
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = f"Application Status Update: {company}"
+    msg["From"] = SMTP_EMAIL
+    msg["To"] = to_email
+
+    text = f"Hi there,\n\nYour application status for {title} at {company} has been updated to: {new_status.upper()}.\n\nCheck your dashboard for details.\n\nThanks,\nInternMatch Team"
+    
+    html = f"""\
+    <html>
+      <body>
+        <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+            <h2 style="color: #6366f1;">Application Update!</h2>
+            <p>Your application status for <strong>{title}</strong> at <strong>{company}</strong> has been updated to:</p>
+            <h3 style="color: #00A5EC; text-transform: uppercase;">{new_status}</h3>
+            <p>Log in to your InternMatch dashboard to view more details.</p>
+            <p style="margin-top: 20px; font-size: 12px; color: #777;">Thanks, InternMatch Team</p>
+        </div>
+      </body>
+    </html>
+    """
+
+    part1 = MIMEText(text, "plain")
+    part2 = MIMEText(html, "html")
+    msg.attach(part1)
+    msg.attach(part2)
+
+    try:
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.starttls()
+        server.login(SMTP_EMAIL, SMTP_PASSWORD)
+        server.sendmail(SMTP_EMAIL, to_email, msg.as_string())
+        server.quit()
+        return True
+    except Exception as e:
+        print(f"Failed to send status email: {e}")
+        return False
+
