@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export default function Home() {
   const [file, setFile] = useState(null);
@@ -9,11 +9,14 @@ export default function Home() {
   const [checkingProfile, setCheckingProfile] = useState(true);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const checkSavedProfile = async () => {
       const token = localStorage.getItem('token');
-      if (!token) {
+      
+      // Bypass auto-redirect if user explicitly wants to update resume
+      if (!token || searchParams.get('update') === 'true') {
         setCheckingProfile(false);
         return;
       }

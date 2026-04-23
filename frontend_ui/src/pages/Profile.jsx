@@ -63,7 +63,7 @@ export default function Profile() {
             <p className="text-sm text-gray-600 mb-4">
               Your skills are automatically extracted when you upload your resume on the Home page.
             </p>
-            <Link to="/" className="btn-secondary inline-block">Update Resume</Link>
+            <Link to="/?update=true" className="btn-secondary inline-block">Update Resume</Link>
           </div>
         </div>
       </div>

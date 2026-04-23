@@ -81,7 +81,7 @@ export default function Results() {
             Based on <span className="text-[#00A5EC] font-bold">{userSkills.length}</span> extracted skills.
           </p>
         </div>
-        <Link to="/" className="btn-secondary flex items-center gap-2 group">
+        <Link to="/?update=true" className="btn-secondary flex items-center gap-2 group">
           <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Update Profile
         </Link>
